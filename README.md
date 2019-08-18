@@ -54,7 +54,7 @@ $rocker->on("event", function (Event $event) use ($relay) {
 });
 ```
 
-... Don't forget to run the loop :simple_smile:
+... Don't forget to run the loop 
 ```
 $loop->run();
 ```
