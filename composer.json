@@ -1,6 +1,6 @@
 {
 	"keywords" : [
-		"reactp"
+		"reactphp asynchronous reactor enocean iot"
 	],
 	"autoload" : {
 		"psr-4" : {
@@ -17,5 +17,6 @@
 		"react/stream" : "~1.1",
 		"react/socket" : "~1.2"
 	},
-	"minimum-stability" : "dev"
+	"minimum-stability" : "dev",
+	"homepage" : "https://github.com/phpabi/react-phenocean"
 }
