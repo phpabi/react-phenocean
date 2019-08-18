@@ -1,0 +1,21 @@
+{
+	"keywords" : [
+		"reactp"
+	],
+	"autoload" : {
+		"psr-4" : {
+			"nerdmann\\react\\phenocean\\" : "src"
+		}
+	},
+	"name" : "nerdmann/react-phenocean",
+	"type" : "library",
+	"description" : "Enocean stream for ReactPHP",
+	"license" : "MIT",
+	"require" : {
+		"php" : ">=7.2",
+		"react/filesystem" : "~0.1",
+		"react/stream" : "~1.1",
+		"react/socket" : "~1.2"
+	},
+	"minimum-stability" : "dev"
+}
