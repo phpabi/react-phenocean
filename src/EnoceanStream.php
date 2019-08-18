@@ -2,14 +2,11 @@
 namespace nerdmann\react\phenocean;
 
 use Evenement\EventEmitter;
-use React\EventLoop\Factory;
 use React\Stream\DuplexResourceStream;
 use React\Stream\Util;
 use Exception;
 use nerdmann\react\phenocean\packet\Packet;
 use nerdmann\react\phenocean\packet\PacketFactory;
-use nerdmann\react\phenocean\device\DeviceFactory;
-require __DIR__ . "/../vendor/autoload.php";
 
 class EnoceanStream extends EventEmitter
 {
@@ -147,103 +144,6 @@ class EnoceanStream extends EventEmitter
         }
     }
 }
-
-$loop = Factory::create();
-$stream = new EnoceanStream("/dev/enocean", $loop);
-
-$dev = DeviceFactory::create(array(
-    0xD2,
-    0x01,
-    0x12
-), array(
-    0x05,
-    0x85,
-    0x2B,
-    0x9A
-), $stream, $loop);
-$dev2 = DeviceFactory::create(array(
-    0xD2,
-    0x01,
-    0x12
-), array(
-    0x05,
-    0x84,
-    0xe0,
-    0x72
-), $stream, $loop);
-$blueRocker = DeviceFactory::create(array(
-    0xF6,
-    0x02,
-    0x02
-), array(
-    0x00,
-    0x35,
-    0x8B,
-    0x77
-), $stream, $loop);
-$meterPlug = DeviceFactory::create(array(
-    0xA5,
-    0x12,
-    0x01
-), array(
-    0xFF,
-    0xF2,
-    0x7D,
-    0x01
-), $stream, $loop);
-$switchPlug = DeviceFactory::create(array(
-    0xFF,
-    0xFF,
-    0x01
-), array(
-    0xFF,
-    0xF2,
-    0x7D,
-    0x00
-), $stream, $loop);
-
-$dev->on("event", function (Event $event) use ($dev) {
-    switch ($event->getType()) {
-        case "pairing":
-            $dev->pair($event->getProperty("request"));
-    }
-});
-
-$blueRocker->on("event", function (Event $event) use ($dev) {
-    if ($event->getProperty("pressed1")) {
-        switch ($event->getProperty("rocker1")) {
-            case 0:
-                $dev->setActuator(0x00, 0x64);
-                break;
-            case 1:
-                $dev->setActuator(0x00, 0x00);
-                break;
-            case 2:
-                $dev->setActuator(0x01, 0x64);
-                break;
-            case 3:
-                $dev->setActuator(0x01, 0x00);
-                break;
-        }
-    }
-});
-
-$meterPlug->on("event", function (Event $event) {
-    print_r($event);
-});
-$switchPlug->on("event", function (Event $event) {
-        print_r($event);
-    });
-
-$stream->on("packet", function (Packet $packet) {
-    // echo "Received packet\n";
-});
-$stream->on("error", function (Exception $e) {
-    var_dump($e);
-});
-
-$loop->run();
-
 
 
 
