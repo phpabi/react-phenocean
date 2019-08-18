@@ -1,6 +1,10 @@
 {
 	"keywords" : [
-		"reactphp asynchronous reactor enocean iot"
+		"reactphp",
+		"asynchronous",
+		"reactor",
+		"enocean",
+		"iot"
 	],
 	"autoload" : {
 		"psr-4" : {
